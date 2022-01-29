@@ -1,3 +1,9 @@
+{% extends 'makeup/base.html' %}
+
+{% block content %}
+    
+
+    
 {% if list %}
     <ul>
     {% for brand in list %}
@@ -7,3 +13,5 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+
+{% endblock content %}

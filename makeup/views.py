@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404 , render
 
 # Create your views here.
 from django.http import HttpResponse
@@ -6,7 +6,7 @@ from .models import Brand,Product
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the makeup index.")
+    return render(request,'makeup/index.html')
 
 def brandList(request):
     templateName='makeup/brand_list.html'
@@ -29,6 +29,6 @@ def brandDetail(request, id):
 
 def productDetail(request, id):
     templateName='makeup/product_detail.html'
-    context={"name":"Product","product":Product.objects.get(pk=id)}
+    context={"name":"Product","product":get_object_or_404(Product,pk=id)}
     return render(request,templateName,context)
 

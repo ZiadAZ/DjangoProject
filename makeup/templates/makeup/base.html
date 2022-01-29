@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+
+    {% include 'makeup/share/CSS.html' %}
+</head>
+
+<body>
+    <h1>
+        Django Project
+    </h1>
+    <div class='container'>
+        {% include 'makeup/share/nav.html' %}
+        {% block content %}{% endblock content %}
+    </div>
+    {% include 'makeup/share/JS.html' %}
+</body>
+
+</html>
