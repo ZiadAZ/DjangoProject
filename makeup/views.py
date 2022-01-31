@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404 , render
 # Create your views here.
 from django.http import HttpResponse
 from .models import Brand,Product
-from .forms import BrandForm
+from .forms import BrandForm,ProductForm
 from django.http import HttpResponseRedirect
 
 def index(request):
@@ -55,9 +55,33 @@ def brandCreate(request,id=None):
     return render(request,templateName,context)
     
 
- 
 
 def brandDelete(request, id):
         get_object_or_404(Brand, pk = id).delete()
  
         return brandList(request)
+
+def productManage(request,id=None):
+    form=ProductForm
+
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ProductForm(request.POST)
+        # check whether it's valid:
+        
+        if form.save():
+            
+            return productList(request)
+    elif id :
+        obj = get_object_or_404(Product, pk = id)
+        form = ProductForm( {'name':obj.name,'orgin':obj.orgin})
+        
+    templateName='makeup/product_manage.html'
+    context={"name":"Product","form":form}
+    return render(request,templateName,context)
+ 
+
+def productDelete(request, id):
+        get_object_or_404(Product, pk = id).delete()
+ 
+        return productList(request)

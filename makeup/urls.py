@@ -11,6 +11,9 @@ urlpatterns = [
     path('brand-create/', views.brandCreate, name='brand-create'),
     path('brand-update/<int:id>', views.brandCreate, name='brand-update'),
     path('brand-delete/<int:id>', views.brandDelete, name='brand-delete'),
+    path('product-manage/', views.productManage, name='product-manage'),
+    path('product-update/<int:id>', views.productManage, name='product-update'),
+    path('product-delete/<int:id>', views.productDelete, name='product-delete'),
   #  path('brandSave/', views.brandSave, name='brandSave'),
     
 ]
