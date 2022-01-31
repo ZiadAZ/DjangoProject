@@ -8,6 +8,8 @@
     <ul>
     {% for brand in list %}
         <li><a href={{ brand.getUrl }}>{{ brand.name }}</a></li>
+        <button type="button" class="btn btn-secondary"><a href="{% url 'brand-update' brand.id %}" style="color: white;">Update Post</a></button>
+        <button type="button" class="btn btn-danger"><a href="{% url 'brand-delete' brand.id %}" style="color: white;">Delete Post</a></button>
     {% endfor %}
     </ul>
 {% else %}

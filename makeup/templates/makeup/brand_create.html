@@ -1,0 +1,17 @@
+{% extends 'makeup/base.html' %}
+
+{% block content %}
+    
+
+<form action="{% url 'brand-create' %}" method="Post">
+    {% csrf_token %}
+    {{ form.as_table}}
+    {% for e in forms.errors %}
+    <p>{{i}}</p>
+    {% endfor %}
+    <input type="submit" value="Submit">
+
+
+    </form>
+
+    {% endblock content %}
