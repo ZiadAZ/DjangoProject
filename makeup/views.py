@@ -1,10 +1,74 @@
-from django.shortcuts import get_object_or_404 , render
-
+from django.shortcuts import get_object_or_404 , render,redirect
+from re import template
 # Create your views here.
 from django.http import HttpResponse
 from .models import Brand,Product
-from .forms import BrandForm,ProductForm
+from .forms import BrandForm,ProductForm,LoginForm
 from django.http import HttpResponseRedirect
+from django.views.generic import View
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
+# def login(request,id=None):
+ 
+    # template_name = 'makeup/form.html'
+
+    # if request.method == 'POST':
+
+    #    form = LoginForm(request.POST)
+    #    if form.is_valid():
+    #         user = form.authentication()
+    #         if user is None:
+    #             context = {
+    #                 'errors': "User Login Field"
+    #             }
+               
+    #         login(request, user)        
+    #         return redirect('profile', permanent=False)
+    # if request.user.is_authenticated:
+    #         return redirect('profile', permanent=False)
+    # context = {
+    #         'form': LoginForm
+    #     }
+    # return render(request, template_name, context)
+
+
+class LoginView(View):
+    form = LoginForm
+    template_name = 'makeup/form.html'
+    def get(self,request,**args):
+        if request.user.is_authenticated:
+            return redirect('profile', permanent=False)
+        context = {
+            'form': LoginForm
+        }
+        return render(self.request, self.template_name, context)
+
+    def post(self, request, **args):
+        form = self.form(request.POST)
+        if form.is_valid():
+            user = form.authentication()
+            if user is None:
+                context = {
+                    'form': form
+                }
+                return render(request, self.template_name, context)
+            login(request, user)        
+        return redirect('profile', permanent=False)
+
+
+
+
+
+@login_required
+def profile(request):
+    return render(request, 'makeup/user.html')
+
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('login', permanent=False)
 
 def index(request):
     return render(request,'makeup/index.html')

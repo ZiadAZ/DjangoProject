@@ -1,5 +1,24 @@
 from django import forms
 from .models import Brand,Product
+from django.contrib.auth import authenticate
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label='Username', max_length=100)
+    password = forms.CharField(label='Password', max_length=200, widget=forms.PasswordInput())
+
+
+  
+
+    def authentication(self):
+
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
+
+        is_authentication = authenticate(username=username, password=password)
+
+        if is_authentication:
+            return is_authentication
+        return None
 
 class BrandForm(forms.Form):
     name=forms.CharField(label="Name",max_length=15)
